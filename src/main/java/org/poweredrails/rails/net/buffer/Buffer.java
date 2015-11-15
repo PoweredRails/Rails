@@ -126,6 +126,8 @@ public class Buffer {
             }
 
             this.buffer.writeByte(value);
+        } else {
+            throw new RuntimeException("Failed to write varint: " + weight + " > " + validateVarIntCount(value));
         }
     }
 
@@ -134,10 +136,32 @@ public class Buffer {
      * @param array byte array
      */
     public void writeByteArray(byte[] array) {
-//        if (validateVarIntCount(array.length) < 3) {
         this.writeVarInt(array.length, 2);
         this.buffer.writeBytes(array);
-//        }
+    }
+
+    /**
+     * Writes a double to the byte buffer.
+     * @param value double
+     */
+    public void writeDouble(double value) {
+        this.buffer.writeDouble(value);
+    }
+
+    /**
+     * Writes a float to the byte buffer.
+     * @param value float
+     */
+    public void writeFloat(float value) {
+        this.buffer.writeFloat(value);
+    }
+
+    /**
+     * Writes a boolean to the byte array.
+     * @param value boolean
+     */
+    public void writeBoolean(boolean value) {
+        this.buffer.writeBoolean(value);
     }
 
     /**
@@ -232,6 +256,30 @@ public class Buffer {
     public byte[] readByteArray() {
         int length = this.readVarInt(2);
         return this.buffer.readBytes(length).array();
+    }
+
+    /**
+     * Reads a double from the byte buffer.
+     * @return double
+     */
+    public double readDouble() {
+        return this.buffer.readDouble();
+    }
+
+    /**
+     * Reads a float from the byte buffer.
+     * @return float
+     */
+    public float readFloat() {
+        return this.buffer.readFloat();
+    }
+
+    /**
+     * Reads a boolean from the byte buffer.
+     * @return boolean
+     */
+    public boolean readBoolean() {
+        return this.buffer.readBoolean();
     }
 
     /**

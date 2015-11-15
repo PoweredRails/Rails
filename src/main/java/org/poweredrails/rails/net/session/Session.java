@@ -25,6 +25,7 @@
 package org.poweredrails.rails.net.session;
 
 import io.netty.channel.Channel;
+import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelHandlerContext;
 import org.poweredrails.rails.Main;
 import org.poweredrails.rails.net.packet.EncryptionHandler;
@@ -76,10 +77,12 @@ public class Session {
      * Writes a packet to the handler context, to be sent to the client.
      * @param packet packet
      */
-    public void sendPacket(Packet<?> packet) {
+    public ChannelFuture sendPacket(Packet<?> packet) {
         if (!Main.getEventBus().firePacket(this, packet)) {
-            this.channel.writeAndFlush(packet);
+            return this.channel.writeAndFlush(packet);
         }
+
+        return null;
     }
 
     /**
