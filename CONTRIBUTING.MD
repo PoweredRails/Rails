@@ -49,7 +49,7 @@ Overall, our guidelines strongly follow those of [Google's Java Style Guidelines
 ## Examples
 It is recommended that you read Google's Java conventions, due to being two very long documents here is some quick start properly formatted example code
 
-```
+``` java
 /*
  * Apache Licensing
  */
@@ -103,7 +103,7 @@ public class Example {
 
 Heres an example of a properly formatted code in an interface:
 
-```
+``` java
 /*
  * Apache Licensing
  */
