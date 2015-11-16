@@ -27,6 +27,7 @@ package org.poweredrails.rails.net.packet.registry;
 import static org.poweredrails.rails.net.session.SessionStateEnum.HANDSHAKE;
 import static org.poweredrails.rails.net.session.SessionStateEnum.LOGIN;
 import static org.poweredrails.rails.net.session.SessionStateEnum.STATUS;
+import static org.poweredrails.rails.net.session.SessionStateEnum.PLAY;
 
 import com.google.common.collect.HashBasedTable;
 import com.google.common.collect.Table;
@@ -37,6 +38,12 @@ import org.poweredrails.rails.net.packet.login.PacketReceiveLoginStart;
 import org.poweredrails.rails.net.packet.login.PacketSendDisconnect;
 import org.poweredrails.rails.net.packet.login.PacketSendEncryptRequest;
 import org.poweredrails.rails.net.packet.login.PacketSendLoginSuccess;
+import org.poweredrails.rails.net.packet.play.PacketReceivePlayerPositionAndLook;
+import org.poweredrails.rails.net.packet.play.PacketSendChunk;
+import org.poweredrails.rails.net.packet.play.PacketSendChunkBulk;
+import org.poweredrails.rails.net.packet.play.PacketSendJoinGame;
+import org.poweredrails.rails.net.packet.play.PacketSendPlayerPositionAndLook;
+import org.poweredrails.rails.net.packet.play.PacketSendSpawnPosition;
 import org.poweredrails.rails.net.packet.status.PacketReceivePing;
 import org.poweredrails.rails.net.packet.status.PacketReceiveStatusRequest;
 import org.poweredrails.rails.net.packet.status.PacketSendPong;
@@ -66,6 +73,13 @@ public class PacketRegistry {
         this.tableIncoming.put(LOGIN, 0x01, PacketReceiveEncryptResponse.class);
         this.tableOutgoing.put(LOGIN, 0x01, PacketSendEncryptRequest.class);
         this.tableOutgoing.put(LOGIN, 0x02, PacketSendLoginSuccess.class);
+
+        this.tableOutgoing.put(PLAY, 0x01, PacketSendJoinGame.class);
+        this.tableOutgoing.put(PLAY, 0x05, PacketSendSpawnPosition.class);
+        this.tableIncoming.put(PLAY, 0x06, PacketReceivePlayerPositionAndLook.class);
+        this.tableOutgoing.put(PLAY, 0x08, PacketSendPlayerPositionAndLook.class);
+        this.tableOutgoing.put(PLAY, 0x21, PacketSendChunk.class);
+        this.tableOutgoing.put(PLAY, 0x26, PacketSendChunkBulk.class);
     }
 
     /**

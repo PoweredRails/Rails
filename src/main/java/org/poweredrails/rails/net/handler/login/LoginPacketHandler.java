@@ -24,13 +24,18 @@
  */
 package org.poweredrails.rails.net.handler.login;
 
+import io.netty.channel.ChannelFuture;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.poweredrails.rails.net.packet.login.PacketReceiveEncryptResponse;
 import org.poweredrails.rails.net.packet.login.PacketReceiveLoginStart;
 import org.poweredrails.rails.net.packet.login.PacketSendEncryptRequest;
 import org.poweredrails.rails.net.packet.login.PacketSendLoginSuccess;
+import org.poweredrails.rails.net.packet.play.PacketSendJoinGame;
+import org.poweredrails.rails.net.packet.play.PacketSendPlayerPositionAndLook;
+import org.poweredrails.rails.net.packet.play.PacketSendSpawnPosition;
 import org.poweredrails.rails.net.session.Session;
+import org.poweredrails.rails.net.session.SessionStateEnum;
 import org.poweredrails.rails.util.UUIDUtil;
 import org.poweredrails.rails.util.auth.Encryption;
 
@@ -131,21 +136,35 @@ public class LoginPacketHandler {
                 UUID uuid = UUIDUtil.fromFlatString(id);
                 this.logger.info("Successfully authenticated Player [" + name + ", " + uuid + "].");
 
-                sender.sendPacket(new PacketSendLoginSuccess(uuid, name));
-                // sender.setState(SessionStateEnum.PLAY);
+                ChannelFuture future = sender.sendPacket(new PacketSendLoginSuccess(uuid, name));
+
+                if (future != null) {
+                    future.addListener((result) -> {
+                        sender.setState(SessionStateEnum.PLAY);
+
+                        PacketSendJoinGame joinPacket = new PacketSendJoinGame();
+                        //... SET DATA
+                        sender.sendPacket(joinPacket);
+
+//                        List<PacketSendChunk> chunks = new ArrayList<>();
+//                        sender.sendPacket(new PacketSendChunkBulk(true, chunks));
+                        sender.sendPacket(new PacketSendSpawnPosition(10, 11, 10));
+                        sender.sendPacket(new PacketSendPlayerPositionAndLook(10, 11, 10, 0, 0));
+                    });
+                }
 
                 /*
                  * x1. LoginSuccess
                  * ..
-                 * 2. JoinGame
+                 * x2. JoinGame
                  * <enable encryption> NOT IF LOCALHOST
                  * 3. SetCompression NOT REQUIRED
                  * ..
                  * 4. WindowItems (inventory) NOT REQUIRED
-                 * 5. ChunkBulk (world) NOT REQUIRED
+                 * x5. ChunkBulk (world) NOT REQUIRED
                  * ..
-                 * 6. SpawnPosition
-                 * 7. PositionAndLook (we load into the world here)
+                 * x6. SpawnPosition
+                 * x7. PositionAndLook (we load into the world here)
                  */
             }).start();
         } catch (Exception e) {
