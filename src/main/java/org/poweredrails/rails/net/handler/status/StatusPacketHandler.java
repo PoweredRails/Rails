@@ -30,12 +30,12 @@ import org.poweredrails.rails.net.packet.status.PacketReceiveStatusRequest;
 import org.poweredrails.rails.net.packet.status.PacketSendPong;
 import org.poweredrails.rails.net.packet.status.PacketSendStatusResponse;
 import org.poweredrails.rails.net.session.Session;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class StatusPacketHandler {
 
-    private final Logger logger = Logger.getLogger("Rails");
+    private final Logger logger = LoggerFactory.getLogger("Rails");
 
     /**
      * Handles a status request packet.

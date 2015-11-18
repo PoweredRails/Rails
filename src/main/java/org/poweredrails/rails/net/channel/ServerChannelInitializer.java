@@ -37,8 +37,7 @@ import org.poweredrails.rails.net.packet.PacketHandler;
 import org.poweredrails.rails.net.packet.registry.PacketRegistry;
 import org.poweredrails.rails.net.session.Session;
 import org.poweredrails.rails.net.session.SessionManager;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 public class ServerChannelInitializer extends ChannelInitializer<SocketChannel> {
 

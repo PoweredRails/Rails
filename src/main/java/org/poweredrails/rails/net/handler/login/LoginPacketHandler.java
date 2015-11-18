@@ -38,6 +38,8 @@ import org.poweredrails.rails.net.session.Session;
 import org.poweredrails.rails.net.session.SessionStateEnum;
 import org.poweredrails.rails.util.UUIDUtil;
 import org.poweredrails.rails.util.auth.Encryption;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -50,14 +52,13 @@ import java.security.MessageDigest;
 import java.security.PrivateKey;
 import java.util.Arrays;
 import java.util.UUID;
-import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
 public class LoginPacketHandler {
 
-    private final Logger logger = Logger.getLogger("Rails");
+    private final Logger logger = LoggerFactory.getLogger("Rails");
 
     // TODO: Move this to a move sensible place.
     private final KeyPair keyPair;

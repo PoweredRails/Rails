@@ -34,9 +34,9 @@ import org.poweredrails.rails.net.channel.ServerChannelInitializer;
 import org.poweredrails.rails.net.handler.HandlerRegistry;
 import org.poweredrails.rails.net.packet.registry.PacketRegistry;
 import org.poweredrails.rails.net.session.SessionManager;
+import org.slf4j.Logger;
 
 import java.net.SocketAddress;
-import java.util.logging.Logger;
 
 public class NetworkManager {
 

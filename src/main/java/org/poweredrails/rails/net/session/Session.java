@@ -76,6 +76,7 @@ public class Session {
     /**
      * Writes a packet to the handler context, to be sent to the client.
      * @param packet packet
+     * @return channel future
      */
     public ChannelFuture sendPacket(Packet<?> packet) {
         if (!Main.getEventBus().firePacket(this, packet)) {

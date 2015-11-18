@@ -32,8 +32,7 @@ import org.poweredrails.rails.net.packet.registry.PacketFactory;
 import org.poweredrails.rails.net.packet.registry.PacketRegistry;
 import org.poweredrails.rails.net.session.Session;
 import org.poweredrails.rails.net.session.SessionStateEnum;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
 
 // TODO: Dispose of session when channel goes inactive.
 public class PacketHandler extends SimpleChannelInboundHandler<UnresolvedPacket> {
@@ -61,7 +60,7 @@ public class PacketHandler extends SimpleChannelInboundHandler<UnresolvedPacket>
 
         PacketFactory factory = this.packetRegistry.find(state, id);
         if (factory == null) {
-            this.logger.severe("Failed to resolve: unrecognised packet...");
+            this.logger.error("Failed to resolve: unrecognised packet...");
             return;
         }
 

@@ -28,12 +28,12 @@ import org.poweredrails.rails.net.packet.handshake.PacketReceiveHandshake;
 import org.poweredrails.rails.net.packet.login.PacketSendDisconnect;
 import org.poweredrails.rails.net.session.Session;
 import org.poweredrails.rails.net.session.SessionStateEnum;
-
-import java.util.logging.Logger;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class HandshakePacketHandler {
 
-    private final Logger logger = Logger.getLogger("Rails");
+    private final Logger logger = LoggerFactory.getLogger("Rails");
 
     /**
      * Handles a handshake packet.

@@ -25,40 +25,42 @@
 package org.poweredrails.rails;
 
 import org.poweredrails.rails.event.EventBus;
-import org.poweredrails.rails.log.ConsoleFormatter;
 import org.poweredrails.rails.net.NetworkManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.InetSocketAddress;
-import java.util.logging.ConsoleHandler;
-import java.util.logging.Logger;
 
 public class Main {
 
-    private static final Logger logger = Logger.getLogger("Rails");
+    private static final float SYSTEM_JAVA_VERSION = Float.parseFloat(System.getProperty("java.class.version"));
+    private static final double PLATFORM_JAVA_VERSION = 52.0;
+
+    private static Logger logger = LoggerFactory.getLogger("Rails");
     private static EventBus eventBus = new EventBus();
 
-    protected Main(NetworkManager networkManager) {
-        this(networkManager, "localhost", 25565);
-    }
+    private static NetworkManager networkManager;
 
-    protected Main(NetworkManager networkManager, String host, int port) {
-        networkManager.bindTo(new InetSocketAddress(host, port));
-    }
-
-    /**
-     * Starts the Server.
-     * @param args boot arguments
-     */
     public static void main(String[] args) {
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setFormatter(new ConsoleFormatter());
+        if (SYSTEM_JAVA_VERSION < PLATFORM_JAVA_VERSION) {
+            logger.error("Rails requires Java 8 inorder to run properly. Download the latest version of Java @ http://www.oracle.com/technetwork/java/javase/downloads/index.html");
+            logger.error("Shutting down...");
+            System.exit(0);
+        } else {
+            logger.info("Initializing server...");
+            networkManager = new NetworkManager(logger);
+            bindPresetAddress();
+        }
+    }
 
-        logger.setUseParentHandlers(false);
-        logger.addHandler(consoleHandler);
+    private static void bindPresetAddress() {
+        bindPresetAddress("localhost", 25565);
+    }
 
-        logger.info("Starting server...");
-
-        new Main(new NetworkManager(logger));
+    private static void bindPresetAddress(String host, int port) {
+        if (networkManager != null) {
+            networkManager.bindTo(new InetSocketAddress(host, port));
+        }
     }
 
     public static EventBus getEventBus() {

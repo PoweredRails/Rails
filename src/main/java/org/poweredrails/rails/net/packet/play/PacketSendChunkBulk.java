@@ -50,7 +50,7 @@ public class PacketSendChunkBulk extends Packet<PlayPacketHandler> {
             buffer.writeInt(packet.getZ());
 //            buffer.writeInt((byte) packet.getMask());
             buffer.writeShort(packet.getMask());
-    }
+        }
 
         for (PacketSendChunk packet : this.chunks) {
             buffer.writeByteArray(packet.getData());
