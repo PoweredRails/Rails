@@ -48,7 +48,7 @@ public class HandshakePacketHandler {
         String address = packet.getAddress();
         int port = packet.getPort();
 
-        this.logger.info(String.format("Client [%s:%s] connecting...", address, port));
+        this.logger.debug(String.format("Client [%s:%s] connecting...", address, port));
 
         int protocol = packet.getProtocol();
 

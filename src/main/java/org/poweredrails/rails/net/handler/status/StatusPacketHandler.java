@@ -48,7 +48,7 @@ public class StatusPacketHandler {
         PacketSendStatusResponse response = new PacketSendStatusResponse();
         sender.sendPacket(response);
 
-        this.logger.info("Responded to a status request.");
+        this.logger.debug("Responded to a status request.");
     }
 
     /**

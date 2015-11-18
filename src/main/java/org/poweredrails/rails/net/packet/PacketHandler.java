@@ -60,7 +60,7 @@ public class PacketHandler extends SimpleChannelInboundHandler<UnresolvedPacket>
 
         PacketFactory factory = this.packetRegistry.find(state, id);
         if (factory == null) {
-            this.logger.error("Failed to resolve: unrecognised packet...");
+            this.logger.debug("Failed to resolve: unrecognised packet...");
             return;
         }
 
