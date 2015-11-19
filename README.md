@@ -12,10 +12,10 @@ Come visit our [Forum] for more helpful discussion.
 
 Current version: v0.1-DEVELOPMENT
 
-## Version Map
+## Milestones
 
 - [ ] 0.1 - Networking
-- [ ] 0.2 - Events
+- [x] 0.2 - Events
 - [ ] 0.2.5 - Basic Entity API
 - [ ] 0.3 - Players
 - [ ] 0.4 - Worlds
