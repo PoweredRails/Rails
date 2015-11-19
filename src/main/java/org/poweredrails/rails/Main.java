@@ -43,7 +43,7 @@ public class Main {
 
     public static void main(String[] args) {
         if (SYSTEM_JAVA_VERSION < PLATFORM_JAVA_VERSION) {
-            logger.error("Rails requires Java 8 inorder to run properly. Download the latest version of Java @ http://www.oracle.com/technetwork/java/javase/downloads/index.html");
+            logger.error("Rails requires Java 8 in order to run properly. Download the latest version of Java at http://www.oracle.com/technetwork/java/javase/downloads/index.html");
             logger.error("Shutting down...");
             System.exit(0);
         } else {
@@ -54,7 +54,7 @@ public class Main {
     }
 
     private static void bindPresetAddress() {
-        bindPresetAddress("localhost", 25565);
+        bindPresetAddress("127.0.0.1", 25565);
     }
 
     private static void bindPresetAddress(String host, int port) {
